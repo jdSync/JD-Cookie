@@ -7,8 +7,10 @@ import (
 )
 
 type Conf struct {
-	DbConf DbConf `json:"db_conf"`
-	UpSave string `json:"up_save"`
+	DbConf       DbConf `json:"db_conf"`
+	UpSave       string `json:"up_save"`
+	UpSaveMethod string `json:"up_save_method"`
+	UpSaveKey    string `json:"up_save_key"`
 }
 
 type DbConf struct {
@@ -50,6 +52,12 @@ func defaultConf() *Conf {
 func parseConfFromEnv(c *Conf) *Conf {
 	if os.Getenv("UPSAVE") != "" {
 		c.UpSave = os.Getenv("UPSAVE")
+	}
+	if os.Getenv("UPSAVE_METHOD") != "" {
+		c.UpSaveMethod = os.Getenv("UPSAVE_METHOD")
+	}
+	if os.Getenv("UPSAVE_KEY") != "" {
+		c.UpSaveKey = os.Getenv("UPSAVE_KEY")
 	}
 	if os.Getenv("DB_ENABLE") == "true" || os.Getenv("DB_ENABLE") == "1" {
 		c.DbConf.DbEnable = true
