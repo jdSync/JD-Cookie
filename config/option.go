@@ -56,8 +56,14 @@ func parseConfFromEnv(c *Conf) *Conf {
 	if os.Getenv("UPSAVE_METHOD") != "" {
 		c.UpSaveMethod = os.Getenv("UPSAVE_METHOD")
 	}
+	if c.UpSaveMethod == "" {
+		c.UpSaveMethod = "POST"
+	}
 	if os.Getenv("UPSAVE_KEY") != "" {
 		c.UpSaveKey = os.Getenv("UPSAVE_KEY")
+	}
+	if c.UpSaveKey == "" {
+		c.UpSaveKey = "userCookie"
 	}
 	if os.Getenv("DB_ENABLE") == "true" || os.Getenv("DB_ENABLE") == "1" {
 		c.DbConf.DbEnable = true
